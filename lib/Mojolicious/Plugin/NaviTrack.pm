@@ -42,10 +42,7 @@ sub navipoint {
         }
         @points = reverse @points;
     }
-    else {
-        my $name = shift;
-        push @points, {'url' => $c->url_for($name), 'name' => $name};
-    }
+
     my $store = $c->stash('_navipoints') || [];
     push @$store, @points;
     $c->stash('_navipoints', $store);
@@ -82,12 +79,12 @@ This document describes Mojolicious::Plugin::NaviTrack version 0.0.1
 
 Somewhere in template:
 
-    % navipoint 'MyPoint';
+    % navipoint 'Home' => '/';
 
 
 Somewhere in layout:
- 
-    %== navitrack 'The First Point';
+
+    %== navitrack 'Little deeper' => '/deep';
 
 =head1 DESCRIPTION
 
@@ -101,13 +98,14 @@ Mojolicious::Plugin::NaviTrack should help autogenerate tracking navigation.
 
 =item navipoint
 
-Add point to navigation track. 
-Accepts one parameter, if it's name of route or hash 
-of pairs name => url
+Add point to navigation track.
+Accepts list of pairs 'name => route'
 
-    navipoint 'somewhere';
-or    
-    navipoint 'Start' => '/', 
+    navipoint 'somewhere' => 'route to somewhere';
+
+or
+
+    navipoint 'Start' => '/',
               'Point' => '/point'
               'End' => '/point/end';
 
@@ -117,7 +115,9 @@ Generates full navitrack. Before generating
 passing all par ameters to L<navipoint>.
 
     navitrack;
-or    
+
+or
+
     navitrack 'The very first point' => '/'; 
 
 =item register
