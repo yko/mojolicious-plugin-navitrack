@@ -1,5 +1,5 @@
 # Copyright (C) 2010, Yaroslav Korshak.
- 
+
 package Mojolicious::Plugin::NaviTrack;
 
 use warnings;
@@ -15,40 +15,36 @@ sub register {
 
     $opts ||= {};
 
-    $app->renderer->add_helper(
-        navipoint => \&navipoint
-    );
-    $app->renderer->add_helper(
-        navitrack => \&navitrack
-    );
-   return $self;
+    $app->renderer->add_helper(navipoint => \&navipoint);
+    $app->renderer->add_helper(navitrack => \&navitrack);
+    return $self;
 }
 
 sub navitrack {
     my $c = shift;
     navipoint($c, @_);
-    my $tc = $c->stash('template_class');
+    my $tc      = $c->stash('template_class');
     my $content = $c->render_partial(
-            template =>'navipoint/navitrack', 
-            'template_class' => __PACKAGE__
-            );
+        template       => 'navipoint/navitrack',
+        template_class => __PACKAGE__
+    );
 
     $c->stash('template_class', $tc);
-           return $content; 
+    return $content;
 }
 
 sub navipoint {
     my $c = shift;
     my @points;
-    if (@_ > 0) { 
-        for (my $i = 0; $i <= $#_; $i+=2) {
-            push @points, { 'name' => $_[$i], 'url' => $_[$i+1] };
+    if (@_ > 0) {
+        for (my $i = 0; $i <= $#_; $i += 2) {
+            push @points, {'name' => $_[$i], 'url' => $_[$i + 1]};
         }
         @points = reverse @points;
     }
-    else { 
+    else {
         my $name = shift;
-        push @points, { 'url' => $c->url_for($name), 'name'  => $name };
+        push @points, {'url' => $c->url_for($name), 'name' => $name};
     }
     my $store = $c->stash('_navipoints') || [];
     push @$store, @points;
@@ -59,9 +55,9 @@ sub navipoint {
 1;
 __DATA__
 @@ navipoint/navitrack.html.ep
-%== join "&rarr; ",  map {
-%"  <a href='$_->{url}'>$_->{name}</a>\n"
-% } reverse @{$self->stash('_navipoints')};
+<%== join "&rarr; ", map {
+       "<a href='$_->{url}'>$_->{name}</a>\n"
+     } reverse @{$self->stash('_navipoints')}; =%>
 __END__
 
 =head1 NAME

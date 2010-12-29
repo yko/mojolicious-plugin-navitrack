@@ -49,39 +49,38 @@ my $t = Test::Mojo->new;
 # GET /
 $t->get_ok('/content/end')->status_is(200)
   ->content_is(<<'END');
-  <a href='/'>Start</a>
-&rarr;   <a href='/content'>Some content</a>
-&rarr;   <a href='/content/end'>Endpoint</a>
+<a href='/'>Start</a>
+&rarr; <a href='/content'>Some content</a>
+&rarr; <a href='/content/end'>Endpoint</a>
 END
 
 $t->get_ok('/content')->status_is(200)
   ->content_is(<<'END');
-  <a href='/'>Start</a>
-&rarr;   <a href='/content'>Some content</a>
+<a href='/'>Start</a>
+&rarr; <a href='/content'>Some content</a>
 END
 
 $t->get_ok('/')->status_is(200)
   ->content_is(<<'END');
-  <a href='/'>Start</a>
+<a href='/'>Start</a>
 END
 
 
 $t->get_ok('/multi')->status_is(200)
   ->content_is(<<'END');
-  <a href='/'>Start</a>
-&rarr;   <a href='/multi'>One Multiple</a>
-&rarr;   <a href='/multi-multi'>Two Multiple</a>
+<a href='/'>Start</a>
+&rarr; <a href='/multi'>One Multiple</a>
+&rarr; <a href='/multi-multi'>Two Multiple</a>
 END
 
 __DATA__
 @@ layouts/default.html.ep
-%== navitrack 'Start' => '/';
+<%= navitrack 'Start' => '/'; =%>
 @@ empty.html.ep
 test?
 @@ index.html.ep
-% navipoint 'Some content' => '/content';
+<% navipoint 'Some content' => '/content'; =%>
 @@ include.html.ep
-% navipoint 'Endpoint' => '/content/end';
+<% navipoint 'Endpoint' => '/content/end'; =%>
 @@ multiple.html.ep
-% navipoint 'One Multiple' => '/multi',
-%           'Two Multiple' => '/multi-multi';
+<% navipoint 'One Multiple' => '/multi', 'Two Multiple' => '/multi-multi'; =%>
