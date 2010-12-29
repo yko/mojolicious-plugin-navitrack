@@ -6,8 +6,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 13;
-
+use Test::More tests => 14;
 
 use FindBin;
 use Mojolicious::Lite;
@@ -72,6 +71,9 @@ $t->get_ok('/multi')->status_is(200)
 &rarr; <a href='/multi'>One Multiple</a>
 &rarr; <a href='/multi-multi'>Two Multiple</a>
 END
+
+# Just to make sure we didn't set template class forever
+is $t->app->stash('template_class'), undef;
 
 __DATA__
 @@ layouts/default.html.ep

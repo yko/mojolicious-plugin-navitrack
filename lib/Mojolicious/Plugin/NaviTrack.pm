@@ -22,14 +22,14 @@ sub register {
 
 sub navitrack {
     my $c = shift;
+
     navipoint($c, @_);
-    my $tc      = $c->stash('template_class');
+
     my $content = $c->render_partial(
         template       => 'navipoint/navitrack',
         template_class => __PACKAGE__
     );
 
-    $c->stash('template_class', $tc);
     return $content;
 }
 
@@ -55,9 +55,10 @@ sub navipoint {
 1;
 __DATA__
 @@ navipoint/navitrack.html.ep
-<%== join "&rarr; ", map {
-       "<a href='$_->{url}'>$_->{name}</a>\n"
-     } reverse @{$self->stash('_navipoints')}; =%>
+<% my $nav = begin =%>
+<a href='<%= $_->{url} %>'><%= $_->{name} %></a>
+<% end =%>
+<%== join "\n&rarr; ", map $nav->($_), reverse @{$self->stash('_navipoints')}; %>
 __END__
 
 =head1 NAME
