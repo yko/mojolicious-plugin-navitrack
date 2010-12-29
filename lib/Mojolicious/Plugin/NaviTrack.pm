@@ -60,7 +60,7 @@ __END__
 
 =head1 NAME
 
-Mojolicious::Plugin::NaviTrack - plugin to automake navigation tracking
+Mojolicious::Plugin::NaviTrack - plugin to automake navigation tracking (breadcrumbs)
 
 
 =head1 VERSION
@@ -72,19 +72,23 @@ This document describes Mojolicious::Plugin::NaviTrack version 0.0.1
 
     use base 'Mojolicious';
 
-    sub statup {
+    sub startup {
         my $self = shift;
         $self->plugin( 'navi_track' );
     }
 
 Somewhere in template:
 
+    @@ index.html.ep
     % navipoint 'Home' => '/';
 
 
 Somewhere in layout:
 
-    %== navitrack 'Little deeper' => '/deep';
+    @@ layout/default.html.ep
+    <div id='breadcrumbs'>
+      <%= navitrack 'Little deeper' => '/deep' %>
+    </div>
 
 =head1 DESCRIPTION
 
@@ -101,24 +105,24 @@ Mojolicious::Plugin::NaviTrack should help autogenerate tracking navigation.
 Add point to navigation track.
 Accepts list of pairs 'name => route'
 
-    navipoint 'somewhere' => 'route to somewhere';
+    % navipoint 'somewhere' => 'route to somewhere';
 
 or
 
-    navipoint 'Start' => '/',
-              'Point' => '/point'
-              'End' => '/point/end';
+    % navipoint 'Start' => '/',
+                'Point' => '/point'
+                'End' => '/point/end';
 
 =item navitrack
 
 Generates full navitrack. Before generating 
 passing all par ameters to L<navipoint>.
 
-    navitrack;
+    %= navitrack;
 
 or
 
-    navitrack 'The very first point' => '/'; 
+    %= navitrack 'The very first point' => '/'; 
 
 =item register
 
