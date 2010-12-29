@@ -8,6 +8,7 @@ my $builder = Module::Build->new(
     dist_author         => 'Yaroslav Korshak <ykorshak@gmail.com>',
     dist_version_from   => 'lib/Mojolicious/Plugin/NaviTrack.pm',
     requires => {
+        'Mojolicious' => 1.0,
         'Test::More' => 0,
         'version'    => 0,
     },

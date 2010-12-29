@@ -1,5 +1,9 @@
 Revision history for mojolicious-plugin-navitrack
 
-0.0.1  Fri Jan 29 13:28:00 2010
-       Initial release.
+0.01_1  Wed Dec 29 13:01:59 2010
+        cleanup
+        updated to Mojolicious 1.0
+
+0.0.1   Fri Jan 29 13:28:00 2010
+        Initial release.
 

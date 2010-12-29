@@ -9,6 +9,7 @@ WriteMakefile(
     ABSTRACT_FROM       => 'lib/Mojolicious/Plugin/NaviTrack.pm',
     PL_FILES            => {},
     PREREQ_PM => {
+        'Mojolicious' => 1.0,
         'Test::More' => 0,
         'version'    => 0,
     },

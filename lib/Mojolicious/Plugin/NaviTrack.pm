@@ -8,7 +8,7 @@ use Carp;
 
 use base 'Mojolicious::Plugin';
 
-our $VERSION = '0.0.1';
+our $VERSION = '0.01_1';
 
 sub register {
     my ($self, $app, $opts) = @_;
